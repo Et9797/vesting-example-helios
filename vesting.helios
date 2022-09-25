@@ -1,0 +1,36 @@
+spending swap
+
+struct Datum {
+    beneficiary: PubKeyHash
+    deadline: Time
+}
+
+struct Redeemer {
+    constr: Int // placeholder
+}
+
+func trace_if_false(msg: String, cond: Bool) -> Bool {
+    if (!cond) {
+        print(msg);
+        false
+    } else {
+        true
+    }
+}
+
+func main(datum: Datum, redeemer: Redeemer, context: ScriptContext) -> Bool {
+    print(redeemer.constr.show()); // ignore redeemer. print is needed because all declared names cannot be unused.
+
+    tx: Tx = context.tx;
+    now: Time = tx.now();
+    
+    if (tx.is_signed_by(datum.beneficiary)) {
+        trace_if_false(
+            "Beneficiary tried to claim utxo, but deadline has not passed yet", 
+            now > datum.deadline
+        )
+    } else {
+        print("Not signed by beneficiary");
+        false
+    }
+}
