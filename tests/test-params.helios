@@ -1,26 +1,26 @@
 struct testDeadlinePassedSignedByBeneficiary {
-	a: Int //ignore
-	
-	func datum() -> Datum {
+    // Test deadline passed and tx was signed by beneficiary -> success
+
+	func datum(self) -> Datum {
 		Datum {
 			beneficiary: PubKeyHash::new(#01234567890123456789012345678901234567890123456789012346),
 			deadline: Time::new(1000)
 		}
 	}
 
-    func redeemer() -> Redeemer {
+    func redeemer(self) -> Redeemer {
         Redeemer{0}
     }
 	
-	func script_context() -> ScriptContext {
-		addr_beneficiary: Address = Address::new(Credential::new_pubkey(testDeadlinePassedSignedByBeneficiary::datum().beneficiary), Option[StakingCredential]::None);
+	func script_context(self) -> ScriptContext {
+		addr_beneficiary: Address = Address::new(Credential::new_pubkey(self.datum().beneficiary), Option[StakingCredential]::None);
 		validator_hash: ValidatorHash = ValidatorHash::new(#01234567890123456789012345678901234567890123456789012347);
 		validator_addr: Address = Address::new(Credential::new_validator(validator_hash), Option[StakingCredential]::None);
 		ref_id: TxOutputId = TxOutputId::new(TxId::new(#0123456789012345678901234567890123456789012345678901234567891234), 0);
 
 		ScriptContext::new_spending(
 			Tx::new(
-				[]TxInput{TxInput::new(ref_id, TxOutput::new(validator_addr, Value::lovelace(10000000), OutputDatum::new_inline(testDeadlinePassedSignedByBeneficiary::datum())))},
+				[]TxInput{TxInput::new(ref_id, TxOutput::new(validator_addr, Value::lovelace(10000000), OutputDatum::new_inline(self.datum())))},
 				[]TxInput{},
 				[]TxOutput{TxOutput::new(addr_beneficiary, Value::lovelace(9840000), OutputDatum::new_none())},
 				Value::lovelace(160000),
@@ -28,7 +28,7 @@ struct testDeadlinePassedSignedByBeneficiary {
 				[]DCert{},
 				Map[StakingCredential]Int{},
 				TimeRange::from(Time::new(1001)),
-				[]PubKeyHash{testDeadlinePassedSignedByBeneficiary::datum().beneficiary},
+				[]PubKeyHash{self.datum().beneficiary},
 				Map[DatumHash]Data{}
 			),
             ref_id
@@ -36,42 +36,43 @@ struct testDeadlinePassedSignedByBeneficiary {
 	}	
 }
 
-const testDeadlinePassedSignedByBeneficiaryDatum: Datum = testDeadlinePassedSignedByBeneficiary::datum()
-const testDeadlinePassedSignedByBeneficiaryRedeemer: Redeemer = testDeadlinePassedSignedByBeneficiary::redeemer()
-const testDeadlinePassedSignedByBeneficiaryCtx: ScriptContext = testDeadlinePassedSignedByBeneficiary::script_context()
+const test1: testDeadlinePassedSignedByBeneficiary = testDeadlinePassedSignedByBeneficiary{}
+const test1_datum: Datum = test1.datum()
+const test1_redeemer: Redeemer = test1.redeemer()
+const test1_ctx: ScriptContext = test1.script_context()
 
 
-struct testDeadlinePassedNotSignedByBeneficiary {
-	a: Int //ignore
-	
-	func datum() -> Datum {
+struct testDeadlineNotPassedSignedByBeneficiary {
+    // Test deadline NOT passed, but was signed by beneficiary -> transaction rejection
+
+	func datum(self) -> Datum {
 		Datum {
 			beneficiary: PubKeyHash::new(#01234567890123456789012345678901234567890123456789012346),
 			deadline: Time::new(1000)
 		}
 	}
 
-    func redeemer() -> Redeemer {
+    func redeemer(self) -> Redeemer {
         Redeemer{0}
     }
 	
-	func script_context() -> ScriptContext {
-		addr_beneficiary: Address = Address::new(Credential::new_pubkey(testDeadlinePassedNotSignedByBeneficiary::datum().beneficiary), Option[StakingCredential]::None);
+	func script_context(self) -> ScriptContext {
+		addr_beneficiary: Address = Address::new(Credential::new_pubkey(self.datum().beneficiary), Option[StakingCredential]::None);
 		validator_hash: ValidatorHash = ValidatorHash::new(#01234567890123456789012345678901234567890123456789012347);
 		validator_addr: Address = Address::new(Credential::new_validator(validator_hash), Option[StakingCredential]::None);
 		ref_id: TxOutputId = TxOutputId::new(TxId::new(#0123456789012345678901234567890123456789012345678901234567891234), 0);
 
 		ScriptContext::new_spending(
 			Tx::new(
-				[]TxInput{TxInput::new(ref_id, TxOutput::new(validator_addr, Value::lovelace(10000000), OutputDatum::new_inline(testDeadlinePassedNotSignedByBeneficiary::datum())))},
+				[]TxInput{TxInput::new(ref_id, TxOutput::new(validator_addr, Value::lovelace(10000000), OutputDatum::new_inline(self.datum())))},
 				[]TxInput{},
 				[]TxOutput{TxOutput::new(addr_beneficiary, Value::lovelace(9840000), OutputDatum::new_none())},
 				Value::lovelace(160000),
 				Value::ZERO,
 				[]DCert{},
 				Map[StakingCredential]Int{},
-				TimeRange::from(Time::new(1001)),
-				[]PubKeyHash{},
+				TimeRange::from(Time::new(999)),
+				[]PubKeyHash{self.datum().beneficiary},
 				Map[DatumHash]Data{}
 			),
             ref_id
@@ -79,6 +80,7 @@ struct testDeadlinePassedNotSignedByBeneficiary {
 	}	
 }
 
-const testDeadlinePassedNotSignedByBeneficiaryDatum: Datum = testDeadlinePassedNotSignedByBeneficiary::datum()
-const testDeadlinePassedNotSignedByBeneficiaryRedeemer: Redeemer = testDeadlinePassedNotSignedByBeneficiary::redeemer()
-const testDeadlinePassedNotSignedByBeneficiaryCtx: ScriptContext = testDeadlinePassedNotSignedByBeneficiary::script_context()
+const test2: testDeadlineNotPassedSignedByBeneficiary = testDeadlineNotPassedSignedByBeneficiary{}
+const test2_datum: Datum = test2.datum()
+const test2_redeemer: Redeemer = test2.redeemer()
+const test2_ctx: ScriptContext = test2.script_context()

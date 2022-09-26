@@ -29,8 +29,8 @@ async function testDeadlinePassedSignedByBeneficiary(paramNames) {
     console.log("Test `testDeadlinePassedSignedByBeneficiary` was successful.\n")
 }
 
-async function testDeadlinePassedNotSignedByBeneficiary(paramNames) {
-    console.log("Test: testDeadlinePassedNotSignedByBeneficiary")
+async function testDeadlineNotPassedSignedByBeneficiary(paramNames) {
+    console.log("Test: testDeadlineNotPassedSignedByBeneficiary")
 
     const args = paramNames.map(p => program.evalParam(p))
 
@@ -45,22 +45,22 @@ async function testDeadlinePassedNotSignedByBeneficiary(paramNames) {
     console.log(returnValue.info)
     assert(returnValue instanceof helios.UserError) 
     assert(returnValue.info == "transaction rejected")
-    console.log("Test `testDeadlinePassedNotSignedByBeneficiary` was successful.\n")
+    console.log("Test `testDeadlineNotPassedSignedByBeneficiary` was successful.\n")
 }
 
 
 await testDeadlinePassedSignedByBeneficiary(
     [
-        "testDeadlinePassedSignedByBeneficiaryDatum", 
-        "testDeadlinePassedSignedByBeneficiaryRedeemer", 
-        "testDeadlinePassedSignedByBeneficiaryCtx"
+        "test1_datum", 
+        "test1_redeemer", 
+        "test1_ctx"
     ]
 )
 
-await testDeadlinePassedNotSignedByBeneficiary(
+await testDeadlineNotPassedSignedByBeneficiary(
     [
-        "testDeadlinePassedNotSignedByBeneficiaryDatum", 
-        "testDeadlinePassedNotSignedByBeneficiaryRedeemer", 
-        "testDeadlinePassedNotSignedByBeneficiaryCtx"
+        "test2_datum", 
+        "test2_redeemer", 
+        "test2_ctx"
     ]
 )
