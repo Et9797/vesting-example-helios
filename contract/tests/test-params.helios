@@ -7,10 +7,6 @@ struct testDeadlinePassedSignedByBeneficiary {
 			deadline: Time::new(1000)
 		}
 	}
-
-    func redeemer(self) -> Redeemer {
-        Redeemer{0}
-    }
 	
 	func script_context(self) -> ScriptContext {
 		addr_beneficiary: Address = Address::new(Credential::new_pubkey(self.datum().beneficiary), Option[StakingCredential]::None);
@@ -38,7 +34,7 @@ struct testDeadlinePassedSignedByBeneficiary {
 
 const test1: testDeadlinePassedSignedByBeneficiary = testDeadlinePassedSignedByBeneficiary{}
 const test1_datum: Datum = test1.datum()
-const test1_redeemer: Redeemer = test1.redeemer()
+const test1_redeemer: Int = 42
 const test1_ctx: ScriptContext = test1.script_context()
 
 
@@ -51,10 +47,6 @@ struct testDeadlineNotPassedSignedByBeneficiary {
 			deadline: Time::new(1000)
 		}
 	}
-
-    func redeemer(self) -> Redeemer {
-        Redeemer{0}
-    }
 	
 	func script_context(self) -> ScriptContext {
 		addr_beneficiary: Address = Address::new(Credential::new_pubkey(self.datum().beneficiary), Option[StakingCredential]::None);
@@ -82,5 +74,5 @@ struct testDeadlineNotPassedSignedByBeneficiary {
 
 const test2: testDeadlineNotPassedSignedByBeneficiary = testDeadlineNotPassedSignedByBeneficiary{}
 const test2_datum: Datum = test2.datum()
-const test2_redeemer: Redeemer = test2.redeemer()
+const test2_redeemer: Int = 42
 const test2_ctx: ScriptContext = test2.script_context()

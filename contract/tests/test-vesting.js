@@ -50,17 +50,9 @@ async function testDeadlineNotPassedSignedByBeneficiary(paramNames) {
 
 
 await testDeadlinePassedSignedByBeneficiary(
-    [
-        "test1_datum", 
-        "test1_redeemer", 
-        "test1_ctx"
-    ]
+    ["test1_datum", "test1_redeemer", "test1_ctx"]
 )
 
 await testDeadlineNotPassedSignedByBeneficiary(
-    [
-        "test2_datum", 
-        "test2_redeemer", 
-        "test2_ctx"
-    ]
+    ["test2_datum", "test2_redeemer", "test2_ctx"]
 )

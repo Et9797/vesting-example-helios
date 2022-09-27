@@ -5,10 +5,6 @@ struct Datum {
     deadline: Time
 }
 
-struct Redeemer {
-    constr: Int // placeholder
-}
-
 func trace_if_false(msg: String, cond: Bool) -> Bool {
     if (!cond) {
         print(msg);
@@ -18,15 +14,12 @@ func trace_if_false(msg: String, cond: Bool) -> Bool {
     }
 }
 
-func main(datum: Datum, redeemer: Redeemer, context: ScriptContext) -> Bool {
-    print(redeemer.constr.show()); // ignore redeemer. print is needed because all declared names cannot be unused.
-
+func main(datum: Datum, context: ScriptContext) -> Bool {
     tx: Tx = context.tx;
     now: Time = tx.now();
-    
     if (tx.is_signed_by(datum.beneficiary)) {
         trace_if_false(
-            "Beneficiary tried to claim utxo, but deadline has not passed yet", 
+            "Beneficiary tried to claim Utxo, but deadline has not passed",
             now > datum.deadline
         )
     } else {
