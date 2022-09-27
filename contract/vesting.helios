@@ -1,4 +1,4 @@
-spending swap
+spending vesting
 
 struct Datum {
     beneficiary: PubKeyHash
