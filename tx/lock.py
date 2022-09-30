@@ -33,7 +33,7 @@ class VestingDatum(PlutusData):
 
 datum = VestingDatum(
     beneficiary_pkh = addr_bf.payment_part.payload,
-    deadline = 1664571348000
+    deadline = 1764571348000
 )
 
 builder = TransactionBuilder(chain_context)
@@ -43,7 +43,7 @@ builder.add_input_address(my_addr)
 builder.add_output(
     TransactionOutput(
         address = script_addr,
-        amount = 10_000_000,
+        amount = 20_000_000,
         datum = datum,
         script = script
     )

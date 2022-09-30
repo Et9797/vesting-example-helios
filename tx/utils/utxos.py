@@ -10,7 +10,6 @@ chain_context = BlockFrostChainContext(
     network = NETWORK,
     base_url = "https://cardano-preview.blockfrost.io/api"
 )
-print(chain_context)
 
 # Addresses
 skey = PaymentSigningKey.load("keys/usr1.skey")

@@ -28,9 +28,8 @@ script_addr = Address(plutus_script_hash(script), network=Network.TESTNET)
 # Claiming Tx
 beneficiary_utxo = [
     utxo for utxo in chain_context.utxos(str(script_addr)) if utxo.input.transaction_id.payload.hex() ==
-    "d9ee4083daf4a177ca945015b5ab72e3726f6e3ce3fc88d0710b619633d68958" #change this
+    "fd1239bf58075e3503b594865289eb3a398745e04ab9a23edf1972a413aa5e23" #change this
 ].pop()
-print(beneficiary_utxo)
 
 @dataclass
 class VestingRedeemer(PlutusData):
