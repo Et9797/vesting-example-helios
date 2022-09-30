@@ -6,7 +6,7 @@ import cbor2
 
 NETWORK = Network.TESTNET
 chain_context = BlockFrostChainContext(
-    project_id = "previewAsoqYq9d11fAfa9fzZr6hFCFlTbSiSFI",
+    project_id = "preview84Fg7cI0ShCtFl5ZmQaCSEJADLOFGbzh",
     network = NETWORK,
     base_url = "https://cardano-preview.blockfrost.io/api"
 )
@@ -33,7 +33,7 @@ class VestingDatum(PlutusData):
 
 datum = VestingDatum(
     beneficiary_pkh = addr_bf.payment_part.payload,
-    deadline = 1666870809000
+    deadline = 1664571348000
 )
 
 builder = TransactionBuilder(chain_context)
@@ -44,7 +44,8 @@ builder.add_output(
     TransactionOutput(
         address = script_addr,
         amount = 10_000_000,
-        datum = datum
+        datum = datum,
+        script = script
     )
 )
 

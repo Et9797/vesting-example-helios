@@ -19,7 +19,7 @@ func main(datum: Datum, context: ScriptContext) -> Bool {
     now: Time = tx.now();
     if (tx.is_signed_by(datum.beneficiary)) {
         trace_if_false(
-            "Beneficiary tried to claim Utxo, but deadline has not passed",
+            "Beneficiary tried to claim Utxo, but deadline has not passed."+ " Tx time = " + now.show() + ", Deadline = " + datum.deadline.show(),
             now > datum.deadline
         )
     } else {

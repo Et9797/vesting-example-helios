@@ -3,7 +3,7 @@ import fs from 'fs'
 
 const validatorSrc = fs.readFileSync('./vesting.helios').toString()
 
-const validator = helios.Program.new(validatorSrc).compile(false)
+const validator = helios.Program.new(validatorSrc).compile()
 
 fs.writeFileSync('./contract.json', validator.serialize())
 

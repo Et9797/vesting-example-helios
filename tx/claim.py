@@ -6,7 +6,7 @@ import cbor2
 
 NETWORK = Network.TESTNET
 chain_context = BlockFrostChainContext(
-    project_id = "previewAsoqYq9d11fAfa9fzZr6hFCFlTbSiSFI",
+    project_id = "preview84Fg7cI0ShCtFl5ZmQaCSEJADLOFGbzh",
     network = NETWORK,
     base_url = "https://cardano-preview.blockfrost.io/api"
 )
@@ -28,8 +28,9 @@ script_addr = Address(plutus_script_hash(script), network=Network.TESTNET)
 # Claiming Tx
 beneficiary_utxo = [
     utxo for utxo in chain_context.utxos(str(script_addr)) if utxo.input.transaction_id.payload.hex() ==
-    "33360f5f0f9852d9f2b5df0abc7651bba53f0f5059aabaa2cc8ec6ac474a5dde" #change this
+    "d9ee4083daf4a177ca945015b5ab72e3726f6e3ce3fc88d0710b619633d68958" #change this
 ].pop()
+print(beneficiary_utxo)
 
 @dataclass
 class VestingRedeemer(PlutusData):
@@ -56,4 +57,4 @@ signed_tx = builder.build_and_sign([skey_bf], change_address=addr_bf)
 print(signed_tx.transaction_body, end="\n\n")
 chain_context.submit_tx(signed_tx.to_cbor())
 print("########## Transaction submitted. ##########")
-print("Transaction id: {signed_tx.id}")
+print(f"Transaction id: {signed_tx.id}")

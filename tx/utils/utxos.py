@@ -6,10 +6,11 @@ import cbor2
 
 NETWORK = Network.TESTNET
 chain_context = BlockFrostChainContext(
-    project_id = "previewAsoqYq9d11fAfa9fzZr6hFCFlTbSiSFI",
+    project_id = "preview84Fg7cI0ShCtFl5ZmQaCSEJADLOFGbzh",
     network = NETWORK,
     base_url = "https://cardano-preview.blockfrost.io/api"
 )
+print(chain_context)
 
 # Addresses
 skey = PaymentSigningKey.load("keys/usr1.skey")
