@@ -9,6 +9,6 @@
   "author": "et",
   "license": "MIT",
   "dependencies": {
-    "@hyperionbt/helios": "^0.6.5"
+    "@hyperionbt/helios": "0.6.5"
   }
 }
